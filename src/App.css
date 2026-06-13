@@ -47,3 +47,9 @@ a {
 .linkBtn:hover {
   background-color: #eaf1f2;
 }
+
+
+.clock-container{
+  text-align: center;
+  margin-top: 200px;
+}
