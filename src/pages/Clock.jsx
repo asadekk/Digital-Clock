@@ -1,34 +1,31 @@
-import React from 'react'
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react'
 
-function DigitalClock() {
-  const [time, setTime] = useState(new Date());
+const Clock =  () => {
+  const [time , setTime] = useState(new Date())
+
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      // Har soniyada yangi vaqt obyektini o'rnatadi
-      setTime(new Date());
-    }, 1000);
+    const timer = setInterval(() => {
+      setTime(new Date())
+    },1000)
 
-    // Komponent o'chirilganda taymerni tozalash
-    return () => clearInterval(interval);
-  }, []);
+    return ()=> clearInterval(timer)
+  },[])
 
-  return (
-    <div>
-      <h2>Digital Clock</h2>
-      {/* Katta 'L' harfiga e'tibor bering: toLocaleTimeString */}
-      <p>{time.toLocaleTimeString()}</p>
+
+  const formattedTime = time.toLocaleTimeString();
+
+
+
+  return(
+    <div className="clock-container">
+      <h1>Digital clock</h1>
+      <div className="clock-display">{formattedTime}</div>
     </div>
-  );
-}
 
-function Clock() {
-  return (
-    <div>
-      <DigitalClock/>
-    </div>
   )
+
 }
 
-export default Clock
+
+export default Clock;
