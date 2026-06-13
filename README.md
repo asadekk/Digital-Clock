@@ -1,4 +1,4 @@
-# 🕒 ChronoHub - Clock, Timer & Stopwatch Application
+# 🕒 ChronoHub - Clock, Timer & Stopwatch Application & World Clock
 
 Bu React va Vite yordamida yaratilayotgan, jamoaviy open-source loyiha. Loyihada real vaqtni ko'rsatuvchi soat, aniq ishlovchi sekundomer (Stopwatch) va taymer funksiyalari mavjud.
 
@@ -10,4 +10,4 @@ Loyihani o'z noutbugingizga yuklab olib, ishga tushirish uchun quyidagi buyruqla
 
 ### 1. Loyihani klon qilish (Yuklab olish):
 ```bash
-git clone <bu_yerga_github_repo_linkini_qo_ying>
+git clone https://github.com/asadekk/Digital-Clock.git
