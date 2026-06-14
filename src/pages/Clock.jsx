@@ -14,13 +14,14 @@ const Clock =  () => {
 
 
   const formattedTime = time.toLocaleTimeString();
-
+  const formattedDate = time.toLocaleDateString();
 
 
   return(
     <div className="clock-container">
       <h1>Digital clock</h1>
       <div className="clock-display">{formattedTime}</div>
+      <p>{formattedDate}</p>
     </div>
 
   )
