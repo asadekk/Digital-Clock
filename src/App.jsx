@@ -2,9 +2,9 @@ import { Route, Routes } from 'react-router-dom'
 import './App.css'
 
 // ===
-import Clock from './Pages/Clock'
-import Timer from './Pages/Timer'
-import Alarm from './Pages/Alarm'
+import Clock from './pages/Clock'
+import Timer from './pages/Timer'
+import Alarm from './pages/Alarm'
 import Layout from './layout/Layout'
 import Worldclock from './pages/Worldclock';
 // ===
@@ -25,4 +25,4 @@ function App() {
   )
 }
 
-export default App
+export default App;
