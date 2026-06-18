@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import '../App.css'
 const Clock =  () => {
   const [time , setTime] = useState(new Date())
 
@@ -14,13 +14,13 @@ const Clock =  () => {
 
 
   const formattedTime = time.toLocaleTimeString();
-
+  const formattedDate = time.toLocaleDateString();
 
 
   return(
-    <div className="clock-container">
-      <h1>Digital clock</h1>
+    <div className="stopwatch-container">
       <div className="clock-display">{formattedTime}</div>
+      <p className='time-display'>{formattedDate}</p>
     </div>
 
   )
