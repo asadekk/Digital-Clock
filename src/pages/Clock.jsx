@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-
+import '../App.css'
 const Clock =  () => {
   const [time , setTime] = useState(new Date())
 
@@ -18,10 +18,9 @@ const Clock =  () => {
 
 
   return(
-    <div className="clock-container">
-      <h1>Digital clock</h1>
+    <div className="stopwatch-container">
       <div className="clock-display">{formattedTime}</div>
-      <p>{formattedDate}</p>
+      <p className='time-display'>{formattedDate}</p>
     </div>
 
   )

@@ -1,17 +1,22 @@
 import { useEffect, useState } from "react";
+import "../App.css";
 
-// Brauzerning o'zidan dunyodagi barcha rasmiy vaqt zonalarini avtomatik olish
-const ALL_TIMEZONES = Intl.supportedValuesOf ? Intl.supportedValuesOf("timeZone") : [
-  "Africa/Lagos", "America/New_York", "Asia/Tashkent", "Europe/London", "Europe/Paris"
-];
+const ALL_TIMEZONES = Intl.supportedValuesOf
+  ? Intl.supportedValuesOf("timeZone")
+  : [
+      "Africa/Lagos",
+      "America/New_York",
+      "Asia/Tashkent",
+      "Europe/London",
+      "Europe/Paris",
+    ];
 
 function Worldclock() {
   const [timezones] = useState(ALL_TIMEZONES);
   const [search, setSearch] = useState("");
-  const [selected, setSelected] = useState("Asia/Tashkent"); // Standart boshlang'ich zona
+  const [selected, setSelected] = useState("Asia/Tashkent");
   const [time, setTime] = useState("");
 
-  // Soatni har soniyada yangilash
   useEffect(() => {
     if (!selected) return;
 
@@ -24,9 +29,9 @@ function Worldclock() {
           second: "2-digit",
           hour12: false,
         });
+
         setTime(currentTime);
       } catch (e) {
-        // Agar eski brauzerlarda ayrim zonalar qo'llab-quvvatlanmasa xato bermasligi uchun
         setTime("--:--:--");
       }
     };
@@ -37,44 +42,50 @@ function Worldclock() {
     return () => clearInterval(interval);
   }, [selected]);
 
-  // Qidiruv filtri (Katta-kichik harflarni farqlamaydi)
   const filtered = timezones.filter((tz) =>
     tz.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div>
-      <h1>🌍 World Clock</h1>
+    <div className="worldclock">
+      <h1 className="title">🌍 World Clock</h1>
 
-      {/* QIDIRUV INPUTI */}
       <input
-        placeholder="davlat nomi"
+        className="search-input"
+        type="text"
+        placeholder="Davlat nomi..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
       />
 
-      {/* RO'YXAT (Scroller bilan) */}
-      <div style={{width:"200px",height:"200px",overflow:'auto'}}>
+      <div className="timezone-list">
         {filtered.length > 0 ? (
           filtered.map((tz) => (
-            <div 
+            <div
               key={tz}
+              className={`timezone-item ${
+                selected === tz ? "active" : ""
+              }`}
               onClick={() => setSelected(tz)}
             >
               {tz.replace("_", " ")}
             </div>
           ))
         ) : (
-          <div>Bunday hudud topilmadi</div>
+          <div className="not-found">Bunday hudud topilmadi</div>
         )}
       </div>
 
-      {/* JONLI SOAT PANELI */}
-      <div>
-        <h3>
-          {selected.split("/")[1]?.replace("_", " ") || selected} ({selected.split("/")[0]})
+      <div className="clock-panel">
+        <h3 className="timezone-name">
+          {selected.split("/")[1]?.replace("_", " ") || selected}
+          <span className="region">
+            {" "}
+            ({selected.split("/")[0]})
+          </span>
         </h3>
-        <h1>
+
+        <h1 className="clock-time">
           {time || "--:--:--"}
         </h1>
       </div>
