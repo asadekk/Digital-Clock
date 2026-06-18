@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect, useRef } from "react";
 import "../App.css";
 
@@ -43,10 +42,12 @@ const Alarm = () => {
 
       setTime(`${hours}:${minutes}:${seconds}`);
 
+      const currentTime = `${hours}:${minutes}:${seconds}`;
+
       if (
         isAlarmSet &&
         !isRinging &&
-        `${hours}:${minutes}` === alarmTime
+        currentTime === `${alarmTime}:00`
       ) {
         setIsRinging(true);
 
@@ -56,7 +57,13 @@ const Alarm = () => {
       }
     }, 1000);
 
-    return () => clearInterval(timer);
+    return () => {
+      clearInterval(timer);
+
+      if (alarmIntervalRef.current) {
+        clearInterval(alarmIntervalRef.current);
+      }
+    };
   }, [isAlarmSet, isRinging, alarmTime]);
 
   const handleAlarmToggle = async () => {
@@ -76,31 +83,34 @@ const Alarm = () => {
       return;
     }
 
+    const hour = Number(alarmHour);
+    const minute = Number(alarmMinute);
+
     if (
-      alarmHour === "" ||
-      alarmMinute === "" ||
-      alarmHour < 0 ||
-      alarmHour > 23 ||
-      alarmMinute < 0 ||
-      alarmMinute > 59
+      isNaN(hour) ||
+      isNaN(minute) ||
+      hour < 0 ||
+      hour > 23 ||
+      minute < 0 ||
+      minute > 59
     ) {
-      alert("Soat 0-23, daqiqa 0-59 bo'lishi kerak!");
+      alert("Soat 0-23, daqiqa 0-59 oralig'ida bo'lishi kerak!");
       return;
     }
 
+    const AudioCtx =
+      window.AudioContext || window.webkitAudioContext;
+
     if (!audioContextRef.current) {
-      audioContextRef.current = new (
-        window.AudioContext ||
-        window.webkitAudioContext
-      )();
+      audioContextRef.current = new AudioCtx();
     }
 
     if (audioContextRef.current.state === "suspended") {
       await audioContextRef.current.resume();
     }
 
-    const h = String(alarmHour).padStart(2, "0");
-    const m = String(alarmMinute).padStart(2, "0");
+    const h = String(hour).padStart(2, "0");
+    const m = String(minute).padStart(2, "0");
 
     setAlarmTime(`${h}:${m}`);
     setIsAlarmSet(true);
@@ -108,11 +118,7 @@ const Alarm = () => {
 
   return (
     <div className="stopwatch-container">
-      <div
-        className={`alarm-container ${
-          isRinging ? "ringing" : ""
-        }`}
-      >
+      <div className={`alarm-container ${isRinging ? "ringing" : ""}`}>
         <div className="alarm-display">
           <span>{time}</span>
         </div>
@@ -177,4 +183,3 @@ const Alarm = () => {
 };
 
 export default Alarm;
-
